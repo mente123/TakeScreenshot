@@ -2,22 +2,16 @@
 import time
 import pyautogui
 import tkinter as tk # tkinter is used to work with widgets.
+from tkinter.filedialog import asksaveasfilename
 import os
 
-#Let's get the username of the PC 
-pcUser = os.environ.get("USERNAME") 
-
-#This is where the screenshot will be placed
-path = "C:/Users/" + pcUser + "/Pictures/Screenshots/"
-
-#If the above directory doesn't exist we have to create it by:
-if not (os.path.exists(path)):
-    os.mkdir(path)
-
 def screenShot():
-    name = int(round(time.time()*1000))
-    img = pyautogui.screenshot(path + "test.png") #giving a format to the picture that is going to be taken
-    img.show()
+    extentions = [("Image Files", "*.png *.jpg")] #Default file extention of the screenshot
+    img = pyautogui.screenshot() 
+    file_name = asksaveasfilename(filetypes=extentions, defaultextension=extentions) #let the users save at their prefered locations
+    if file_name:
+        img.save(file_name)
+    
     
     
 root = tk.Tk()
