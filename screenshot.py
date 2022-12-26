@@ -1,13 +1,22 @@
-import imp
+# import imp
 import time
 import pyautogui
 import tkinter as tk # tkinter is used to work with widgets.
+import os
+
+#Let's get the username of the PC 
+pcUser = os.environ.get("USERNAME") 
+
+#This is where the screenshot will be placed
+path = "C:/Users/" + pcUser + "/Pictures/Screenshots/"
+
+#If the above directory doesn't exist we have to create it by:
+if not (os.path.exists(path)):
+    os.mkdir(path)
 
 def screenShot():
     name = int(round(time.time()*1000))
-    name = '/home/mente/Documents/Mente/Codes/pythonprojects/projectone/projectsenv/screenshots/{}.png'.format(name)  # we can create a folder to store the screenshots.
-    time.sleep(5)
-    img = pyautogui.screenshot('test.png') #giving a format to the picture that is going to be taken
+    img = pyautogui.screenshot(path + "test.png") #giving a format to the picture that is going to be taken
     img.show()
     
     
@@ -18,18 +27,19 @@ frame.pack()
 button = tk.Button(
     frame,
     text = "Take a screenshot",
-    command= screenShot
+    command= screenShot,
 )
 
-button.pack(side=tk.LEFT)
+button.pack(side=tk.LEFT, ipady=20, ipadx=10)
  
 close =  tk.Button(
     frame,
     text = "Close",
-    command= quit
+    command= quit,
+   
 )
 
-close.pack(side=tk.LEFT)
+close.pack(side=tk.LEFT, ipady=20, ipadx=10)
 
 root.mainloop()
 screenShot()
