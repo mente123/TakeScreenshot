@@ -1,14 +1,17 @@
-import imp
+# import imp
 import time
 import pyautogui
 import tkinter as tk # tkinter is used to work with widgets.
+from tkinter.filedialog import asksaveasfilename
+import os
 
 def screenShot():
-    name = int(round(time.time()*1000))
-    name = '/home/mente/Documents/Mente/Codes/pythonprojects/projectone/projectsenv/screenshots/{}.png'.format(name)  # we can create a folder to store the screenshots.
-    time.sleep(5)
-    img = pyautogui.screenshot('test.png') #giving a format to the picture that is going to be taken
-    img.show()
+    extentions = [("Image Files", "*.png *.jpg")] #Default file extention of the screenshot
+    img = pyautogui.screenshot() 
+    file_name = asksaveasfilename(filetypes=extentions, defaultextension=extentions) #let the users save at their prefered locations
+    if file_name:
+        img.save(file_name)
+    
     
     
 root = tk.Tk()
@@ -18,18 +21,19 @@ frame.pack()
 button = tk.Button(
     frame,
     text = "Take a screenshot",
-    command= screenShot
+    command= screenShot,
 )
 
-button.pack(side=tk.LEFT)
+button.pack(side=tk.LEFT, ipady=20, ipadx=10)
  
 close =  tk.Button(
     frame,
     text = "Close",
-    command= quit
+    command= quit,
+   
 )
 
-close.pack(side=tk.LEFT)
+close.pack(side=tk.LEFT, ipady=20, ipadx=10)
 
 root.mainloop()
 screenShot()
